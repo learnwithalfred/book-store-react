@@ -1,0 +1,49 @@
+.card-body {
+  height: 8.625rem;
+  margin: 2.313rem 6.25rem 0;
+  padding: 1rem;
+  border-radius: 4px;
+  border: solid 1px #e8e8e8;
+  background-color: #fff;
+}
+
+.book-data {
+}
+
+.book-progress {
+}
+
+.book-chapter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-left: 2px solid #e8e8e8;
+}
+
+.chapter-description {
+  opacity: 0.5;
+  font-size: 0.813rem;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #121212;
+}
+
+.Lesson-Panel {
+  margin: 1rem 0;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.Update-progress {
+  width: 9.938rem;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.5px;
+  text-align: center;
+  color: #fff;
+}
