@@ -1,10 +1,15 @@
 import React from 'react';
+import AddBookForm from './components/Add-book-form';
+import Book from './components/Book';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
     <div>
-      react app goes here
-      <p>this is an;otehr pa</p>
+      <Navbar />
+      <Book />
+      <Book />
+      <AddBookForm />
     </div>
   );
 }
