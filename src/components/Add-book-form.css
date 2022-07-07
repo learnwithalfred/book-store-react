@@ -1,0 +1,14 @@
+.add-form-container {
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+}
+
+#inputGroupSelect04 {
+  margin: 0 1rem;
+  width: 450px;
+}
+
+.submit-btn {
+  padding: 0 3rem;
+}
