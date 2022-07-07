@@ -3,17 +3,33 @@ import './Book.css';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-function Book() {
-  const percentage = 64;
+function Book(props) {
+  const {
+    title, author, percentage, chapter,
+  } = props;
+
+  Book.propTypes = {
+    title: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
+    percentage: PropTypes.number,
+    chapter: PropTypes.string,
+  };
+
+  Book.defaultProps = {
+    percentage: 69,
+    chapter: '17',
+  };
+
   return (
     <div className="book-container">
       <div className="card-body book-card-body">
         <div className="row">
           <div className="book-data col-5">
             <span className="action-text">Action</span>
-            <span className="action-header">The Hunger Game</span>
-            <span className="action-sub-text">Suzanne Collins</span>
+            <span className="action-header">{title}</span>
+            <span className="action-sub-text">{author}</span>
             <div className="book-data-cta">
               <Link className="action-link first-link" to="/">
                 Comment
@@ -42,7 +58,10 @@ function Book() {
           </div>
           <div className="book-chapter col-4">
             <span className="chapter-description">Current Chapter</span>
-            <span className="Lesson-Panel">Chapter 17</span>
+            <span className="Lesson-Panel">
+              Chapter
+              {chapter}
+            </span>
             <button type="button" className="btn btn-primary Update-progress">
               Update progress
             </button>
