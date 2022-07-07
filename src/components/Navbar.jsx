@@ -32,10 +32,7 @@ function Navbar() {
             </a>
           </li>
         </ul>
-        <a
-          href="/"
-          className="d-block link-dark text-decoration-none"
-        >
+        <a href="/" className="d-block link-dark text-decoration-none">
           <img
             src="https://github.com/mdo.png"
             alt="mdo"
