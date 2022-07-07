@@ -11,12 +11,18 @@
 }
 
 .book-progress {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin: auto;
 }
 
 .book-chapter {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-content: center;
+  margin: auto;
   border-left: 2px solid #e8e8e8;
 }
 
@@ -46,4 +52,34 @@
   letter-spacing: 0.5px;
   text-align: center;
   color: #fff;
+}
+
+.Rectangle-3 {
+}
+.percentage {
+  display: flex;
+  flex-direction: column;
+}
+
+.-Percent-Complete {
+  font-family: Montserrat;
+  font-size: 2rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #121212;
+}
+
+.Completed {
+  opacity: 0.5;
+  font-family: Montserrat;
+  font-size: 0.875rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #121212;
 }
