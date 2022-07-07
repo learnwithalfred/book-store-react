@@ -10,7 +10,7 @@ function Book() {
     <div className="book-container">
       <div className="card-body">
         <div className="row">
-          <div className="book-data col-6">
+          <div className="book-data col-5">
             <span className="action-text">Action</span>
             <span className="action-header">The Hunger Game</span>
             <span className="action-sub-text">Suzanne Collins</span>
@@ -40,7 +40,7 @@ function Book() {
               <span className="Completed Text-Style-2">Completed</span>
             </div>
           </div>
-          <div className="book-chapter col-3">
+          <div className="book-chapter col-4">
             <span className="chapter-description">Current Chapter</span>
             <span className="Lesson-Panel">Chapter 17</span>
             <button type="button" className="btn btn-primary Update-progress">

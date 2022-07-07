@@ -14,8 +14,6 @@
 
 .book-progress {
   display: flex;
-  justify-content: center;
-  align-content: center;
   margin: auto;
 }
 
@@ -26,6 +24,7 @@
   align-content: center;
   margin: auto;
   border-left: 2px solid #e8e8e8;
+  padding-left: 4rem;
 }
 
 .chapter-description {
