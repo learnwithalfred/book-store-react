@@ -8,7 +8,6 @@ function Books() {
     <>
       <Navbar />
       <div className="books-container">
-        <Book title="My first title" author="John doe" />
         <Book
           title="Learn Ruby on rails"
           author="George Stores"
