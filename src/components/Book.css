@@ -8,6 +8,8 @@
 }
 
 .book-data {
+  display: flex;
+  flex-direction: column;
 }
 
 .book-progress {
@@ -54,15 +56,13 @@
   color: #fff;
 }
 
-.Rectangle-3 {
-}
 .percentage {
   display: flex;
   flex-direction: column;
 }
 
 .-Percent-Complete {
-  font-family: Montserrat;
+  font-family: Montserrat, 'Open Sans', sans-serif;
   font-size: 2rem;
   font-weight: normal;
   font-stretch: normal;
@@ -74,7 +74,7 @@
 
 .Completed {
   opacity: 0.5;
-  font-family: Montserrat;
+  font-family: Montserrat, 'Open Sans', sans-serif;
   font-size: 0.875rem;
   font-weight: normal;
   font-stretch: normal;
@@ -82,4 +82,81 @@
   line-height: normal;
   letter-spacing: normal;
   color: #121212;
+}
+
+.action-text {
+  width: 3.063rem;
+  height: 1.125rem;
+  margin: 0 2.438rem 0 0;
+  opacity: 0.5;
+  font-family: Montserrat, 'Open Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #121212;
+}
+
+.action-header {
+  width: 12.313rem;
+  height: 1.813rem;
+  margin: 0.188rem 20.188rem 0 0;
+  font-family: RobotoSlab, 'Open Sans', sans-serif;
+  font-size: 1.375rem;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.2px;
+  color: #121212;
+}
+
+.action-sub-text {
+  width: 6.688rem;
+  height: 1.188rem;
+  margin: 0.25rem 0 0;
+  font-family: RobotoSlab, 'Open Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #4386bf;
+}
+
+.book-data-cta {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  margin: auto 0;
+}
+
+.action-link {
+  height: 1.188rem;
+  margin: 0.188rem 0;
+  font-family: RobotoSlab, 'Open Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #4386bf;
+}
+
+.first-link,
+.second-link {
+  border-right: solid 1px #e8e8e8;
+}
+
+.first-link {
+  padding-right: 1rem;
+}
+
+.third-link,
+.second-link {
+  padding: 0 1rem;
 }

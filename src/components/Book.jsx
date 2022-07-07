@@ -2,6 +2,7 @@ import React from 'react';
 import './Book.css';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { Link } from 'react-router-dom';
 
 function Book() {
   const percentage = 64;
@@ -9,7 +10,22 @@ function Book() {
     <div className="book-container">
       <div className="card-body">
         <div className="row">
-          <div className="book-data col-6">a</div>
+          <div className="book-data col-6">
+            <span className="action-text">Action</span>
+            <span className="action-header">The Hunger Game</span>
+            <span className="action-sub-text">Suzanne Collins</span>
+            <div className="book-data-cta">
+              <Link className="action-link first-link" to="/">
+                Comment
+              </Link>
+              <Link className="action-link second-link" to="/">
+                Remove
+              </Link>
+              <Link className="action-link third-link" to="/">
+                Edit
+              </Link>
+            </div>
+          </div>
           <div className="book-progress col-3">
             <div className="Rectangle-3">
               <div style={{ width: 50, height: 50, marginRight: 5 }}>
