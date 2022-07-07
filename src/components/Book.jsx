@@ -8,7 +8,7 @@ function Book() {
   const percentage = 64;
   return (
     <div className="book-container">
-      <div className="card-body">
+      <div className="card-body book-card-body">
         <div className="row">
           <div className="book-data col-5">
             <span className="action-text">Action</span>
