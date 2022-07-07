@@ -10,14 +10,15 @@ function AddBookForm() {
           <input
             required
             type="text"
+            placeholder="Book title"
             className="form-control"
             aria-label="Text input with segmented dropdown button"
           />
           <select className="custom-select" id="inputGroupSelect04" required>
-            <option selected>Category</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            <option selected>Author</option>
+            <option value="1">John Doe</option>
+            <option value="2">Samuel Nip</option>
+            <option value="3">Ken Brown</option>
           </select>
           <button type="submit" className="btn btn-primary submit-btn">
             Add Book
