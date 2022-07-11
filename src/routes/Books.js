@@ -1,11 +1,19 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import AddBookForm from '../components/Add-book-form';
 import Book from '../components/Book';
 import Navbar from '../components/Navbar';
-import { selectAllBooks } from '../redux/books/books';
+import { selectAllBooks, addBook } from '../redux/books/books';
 
 function Books() {
+  const dispatch = useDispatch();
+
+  const onSavePostClicked = (title, author) => {
+    if (title && author) {
+      dispatch(addBook({ title, author }));
+    }
+  };
+
   const books = useSelector(selectAllBooks);
   const renderBooks = books.map((book) => (
     <Book
@@ -22,7 +30,7 @@ function Books() {
       <div className="books-container">
         {renderBooks}
         <hr className="line-break" />
-        <AddBookForm />
+        <AddBookForm handleSaveBook={onSavePostClicked} />
       </div>
     </>
   );

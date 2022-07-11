@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { bookAdded } from '../redux/books/books';
-import { addBook } from '../redux/actions/book';
+import { addBook } from '../redux/books/books';
 
 import { selectAllCategories } from '../redux/categories/categories';
 import './Add-book-form.css';

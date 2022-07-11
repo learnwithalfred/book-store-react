@@ -9,6 +9,16 @@ const initialState = [
   { id: '657890', title: 'Your family can be happy', author: 'John Doe' },
 ];
 
+export const addBook = (book) => ({
+  type: 'ADD_BOOK',
+  book,
+});
+
+export const removeBook = (id) => ({
+  type: 'REMOVE_BOOK',
+  id,
+});
+
 const booksReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_BOOK':
