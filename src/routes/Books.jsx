@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import AddBookForm from '../components/Add-book-form';
 import Book from '../components/Book';
 import Navbar from '../components/Navbar';
-import { selectAllBooks } from '../redux2/books/books';
+import { selectAllBooks } from '../redux/books/books';
 
 function Books() {
   const books = useSelector(selectAllBooks);

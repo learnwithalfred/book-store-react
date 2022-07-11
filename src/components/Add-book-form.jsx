@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import { bookAdded } from '../redux/books/books';
-import { addBook } from '../redux2/actions/book';
+import { addBook } from '../redux/actions/book';
 
-import { selectAllCategories } from '../redux2/categories/categories';
+import { selectAllCategories } from '../redux/categories/categories';
 import './Add-book-form.css';
 
 function AddBookForm() {
