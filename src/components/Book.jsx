@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 function Book(props) {
   const {
-    title, author, percentage, chapter,
+    title, author, percentage, chapter, handleDelete,
   } = props;
 
   Book.propTypes = {
@@ -15,6 +15,7 @@ function Book(props) {
     author: PropTypes.string.isRequired,
     percentage: PropTypes.number,
     chapter: PropTypes.string,
+    handleDelete: PropTypes.func.isRequired,
   };
 
   Book.defaultProps = {
@@ -35,6 +36,7 @@ function Book(props) {
                 Comment
               </Link>
               <button
+                onClick={handleDelete}
                 type="button"
                 className="action-link second-link remove-book-button"
               >

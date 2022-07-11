@@ -31,7 +31,7 @@ const booksReducer = (state = initialState, action) => {
         },
       ];
     case 'REMOVE_BOOK':
-      return state.map((todo) => todo.id !== action.id);
+      return state.filter((todo) => todo.id !== action.id);
     default:
       return state;
   }
