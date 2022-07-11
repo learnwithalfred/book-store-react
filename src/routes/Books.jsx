@@ -1,23 +1,26 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import AddBookForm from '../components/Add-book-form';
 import Book from '../components/Book';
 import Navbar from '../components/Navbar';
+import { selectAllBooks } from '../redux2/books/books';
 
 function Books() {
+  const books = useSelector(selectAllBooks);
+  const renderBooks = books.map((book) => (
+    <Book
+      key={book.id}
+      title={book.title}
+      author={book.author}
+      percentage={90}
+    />
+  ));
+
   return (
     <>
       <Navbar />
       <div className="books-container">
-        <Book
-          title="Learn Ruby on rails"
-          author="George Stores"
-          percentage={90}
-        />
-        <Book
-          title="React made easy"
-          author="Rebecca Blankson"
-          percentage={80}
-        />
+        {renderBooks}
         <hr className="line-break" />
         <AddBookForm />
       </div>
