@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { nanoid } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
-import { bookAdded } from '../redux/books/books';
-import { selectAllCategories } from '../redux/categories/categories';
+// import { bookAdded } from '../redux/books/books';
+import { addBook } from '../redux2/actions/book';
+
+import { selectAllCategories } from '../redux2/categories/categories';
 import './Add-book-form.css';
 
 function AddBookForm() {
@@ -18,7 +19,7 @@ function AddBookForm() {
 
   const onSavePostClicked = () => {
     if (title && author) {
-      dispatch(bookAdded({ title, author, id: nanoid() }));
+      dispatch(addBook({ title, author }));
       setTitle('');
       setAuthor('');
     }

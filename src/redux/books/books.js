@@ -3,10 +3,10 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = [
   {
     id: '2',
-    title: 'JOhn',
-    author: 'mark',
+    title: 'My Book of Bible Stories',
+    author: 'jw.org',
   },
-  { id: '657890', title: 'Ben', author: 'ken' },
+  { id: '657890', title: 'Your family can be happy', author: 'John Doe' },
 ];
 
 export const bookSlice = createSlice({
@@ -17,7 +17,6 @@ export const bookSlice = createSlice({
       state.push(action.payload);
     },
     bookRemoved: (state, action) => {
-      console.log(action.payload);
       state.filter((data) => data.id !== action.payload);
     },
   },
