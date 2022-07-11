@@ -34,9 +34,12 @@ function Book(props) {
               <Link className="action-link first-link" to="/">
                 Comment
               </Link>
-              <Link className="action-link second-link" to="/">
+              <button
+                type="button"
+                className="action-link second-link remove-book-button"
+              >
                 Remove
-              </Link>
+              </button>
               <Link className="action-link third-link" to="/">
                 Edit
               </Link>

@@ -167,3 +167,8 @@
   border: solid 1px #e8e8e8;
   margin: 3rem 0;
 }
+
+.remove-book-button {
+  border: none;
+  cursor: pointer;
+}
