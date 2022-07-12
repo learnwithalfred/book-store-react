@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import AddBookForm from '../components/Add-book-form';
 import Book from '../components/Book';
 import Navbar from '../components/Navbar';
-import { getBooks, deleteBook } from '../redux/books/books';
+import { getBooks } from '../redux/books/books';
 
 function Books() {
   const { books, loading } = useSelector((state) => state.books);
@@ -12,10 +12,6 @@ function Books() {
   useEffect(() => {
     dispatch(getBooks());
   }, [dispatch]);
-
-  const handleDelete = (id) => {
-    dispatch(deleteBook(id));
-  };
 
   let fetchedBooks = '';
   if (loading) {
@@ -29,7 +25,6 @@ function Books() {
           author={book.author}
           category={book.category}
           percentage={90}
-          handleDelete={() => handleDelete(book.id)}
         />
       </div>
     ));

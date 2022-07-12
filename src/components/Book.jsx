@@ -1,14 +1,19 @@
 import React from 'react';
 import './Book.css';
+import { useDispatch } from 'react-redux';
+
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { deleteBook } from '../redux/books/books';
 
 function Book(props) {
   const {
-    id, title, author, percentage, chapter, category, handleDelete,
+    id, title, author, percentage, chapter, category,
   } = props;
+
+  const dispatch = useDispatch();
 
   Book.propTypes = {
     id: PropTypes.string.isRequired,
@@ -17,12 +22,15 @@ function Book(props) {
     author: PropTypes.string.isRequired,
     percentage: PropTypes.number,
     chapter: PropTypes.string,
-    handleDelete: PropTypes.func.isRequired,
   };
 
   Book.defaultProps = {
     percentage: 69,
     chapter: '17',
+  };
+
+  const removeHandler = () => {
+    dispatch(deleteBook(id));
   };
 
   return (
@@ -38,7 +46,7 @@ function Book(props) {
                 Comment
               </Link>
               <button
-                onClick={handleDelete}
+                onClick={removeHandler}
                 type="button"
                 className="action-link second-link remove-book-button"
               >
