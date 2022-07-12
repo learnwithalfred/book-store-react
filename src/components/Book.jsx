@@ -7,11 +7,13 @@ import PropTypes from 'prop-types';
 
 function Book(props) {
   const {
-    title, author, percentage, chapter, handleDelete,
+    id, title, author, percentage, chapter, category, handleDelete,
   } = props;
 
   Book.propTypes = {
+    id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
     author: PropTypes.string.isRequired,
     percentage: PropTypes.number,
     chapter: PropTypes.string,
