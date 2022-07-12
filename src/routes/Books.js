@@ -1,36 +1,47 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import AddBookForm from '../components/Add-book-form';
 import Book from '../components/Book';
 import Navbar from '../components/Navbar';
-import { selectAllBooks, addBook } from '../redux/books/books';
+import { getBooks, deleteBook } from '../redux/books/books';
 
 function Books() {
+  const { books, loading } = useSelector((state) => state.books);
   const dispatch = useDispatch();
 
-  const onSavePostClicked = (title, author) => {
-    if (title && author) {
-      dispatch(addBook({ title, author }));
-    }
+  useEffect(() => {
+    dispatch(getBooks());
+  }, [dispatch]);
+
+  const handleDelete = (id) => {
+    dispatch(deleteBook(id));
   };
 
-  const books = useSelector(selectAllBooks);
-  const renderBooks = books.map((book) => (
-    <Book
-      key={book.id}
-      title={book.title}
-      author={book.author}
-      percentage={90}
-    />
-  ));
+  let fetchedBooks = '';
+  if (loading) {
+    fetchedBooks = <h2>Loading...</h2>;
+  } else {
+    fetchedBooks = books.map((book) => (
+      <div key={book.item_id} className="container">
+        <Book
+          id={book.item_id}
+          title={book.title}
+          author={book.author}
+          category={book.category}
+          percentage={90}
+          handleDelete={() => handleDelete(book.id)}
+        />
+      </div>
+    ));
+  }
 
   return (
     <>
       <Navbar />
       <div className="books-container">
-        {renderBooks}
+        {fetchedBooks}
         <hr className="line-break" />
-        <AddBookForm handleSaveBook={onSavePostClicked} />
+        <AddBookForm />
       </div>
     </>
   );
