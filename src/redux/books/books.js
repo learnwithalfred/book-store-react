@@ -1,54 +1,119 @@
-import BookService from './bookService';
-
 export const ADD_BOOK = 'ADD_BOOK';
-export const GET_BOOKS = 'GET_BOOKS';
+export const GET_ALL_BOOKS = 'GET_ALL_BOOKS';
 export const REMOVE_BOOK = 'REMOVE_BOOK';
-
-export const createBook = (data) => async (dispatch) => {
-  try {
-    const res = await BookService.addNewBook(data);
-    dispatch({
-      type: ADD_BOOK,
-      payload: res.data,
-    });
-    return Promise.resolve(res.data);
-  } catch (err) {
-    return Promise.reject(err);
-  }
-};
-
-const initialState = [
-  {
-    id: '2',
-    title: 'My Book of Bible Stories',
-    author: 'jw.org',
-  },
-  { id: '657890', title: 'Your family can be happy', author: 'John Doe' },
-];
+const FETCH_BOOKS = 'FETCH_BOOKS';
+const FETCH_BOOKS_ERROR = 'FETCH_BOOKS_ERROR';
+const FETCH_BOOKS_LOADING = 'FETCH_BOOKS_LOADING';
+const API_KEY = 'FYlvcWEDlWEYN00KzCCr';
+const BASE_URL = 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net';
+export const URL = `${BASE_URL}/bookstoreApi/apps/${API_KEY}/books`;
 
 export const addBook = (book) => ({
-  type: 'ADD_BOOK',
-  book,
+  type: ADD_BOOK,
+  payload: book,
 });
 
 export const removeBook = (id) => ({
   type: REMOVE_BOOK,
-  id,
+  payload: id,
 });
+
+export const fetchBooks = (books) => ({
+  type: FETCH_BOOKS,
+  payload: books,
+});
+
+export const fetchBooksError = (error) => ({
+  type: FETCH_BOOKS_ERROR,
+  payload: error,
+});
+
+export const fetchBooksLoading = () => ({
+  type: FETCH_BOOKS_LOADING,
+});
+
+const initialState = {
+  books: [],
+  loading: false,
+  error: null,
+};
+
+export const getBooks = () => (dispatch) => {
+  dispatch(fetchBooksLoading());
+  fetch(URL)
+    .then((response) => response.json())
+    .then((data) => {
+      const newBooks = [];
+      Object.keys(data).forEach((key) => {
+        if (key) {
+          newBooks.push({
+            ...data[key][0],
+            item_id: key,
+          });
+        }
+      });
+      dispatch(fetchBooks(newBooks));
+    })
+    .catch((error) => {
+      dispatch(fetchBooksError(error.message));
+    });
+};
+
+export const createBook = (book) => (dispatch) => {
+  fetch(URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(book),
+  }).then(() => {
+    dispatch(addBook(book));
+  });
+};
+
+export const deleteBook = (id) => (dispatch) => {
+  fetch(`${URL}/${id}`, {
+    method: 'DELETE',
+    body: JSON.stringify({ item_id: id }),
+  }).then(() => {
+    dispatch(removeBook(id));
+  });
+};
 
 const booksReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_BOOKS:
-      return action.payload;
+    case FETCH_BOOKS_LOADING:
+      return {
+        ...state,
+        loading: true,
+      };
     case ADD_BOOK:
-      return [...state, action.payload];
+      return {
+        ...state,
+        loading: false,
+        books: [...state.books, action.payload],
+      };
     case REMOVE_BOOK:
-      return state.filter((todo) => todo.id !== action.id);
+      return {
+        ...state,
+        loading: false,
+        books: state.books.filter((book) => book.item_id !== action.payload),
+      };
+    case FETCH_BOOKS:
+      return {
+        ...state,
+        loading: false,
+        books: action.payload,
+      };
+    case FETCH_BOOKS_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
     default:
       return state;
   }
 };
-
-export const selectAllBooks = (state) => state.books;
 
 export default booksReducer;
