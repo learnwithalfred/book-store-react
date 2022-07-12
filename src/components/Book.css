@@ -170,3 +170,7 @@
   border: none;
   cursor: pointer;
 }
+
+.form-control {
+  margin-right: 10px;
+}

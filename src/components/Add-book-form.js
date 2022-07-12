@@ -58,16 +58,21 @@ function AddBookForm() {
           onChange={handleInputChange}
           name="author"
         />
-        <input
+        <select
+          className="custom-select"
+          id="inputGroupSelect04"
           required
-          type="text"
-          placeholder="Category"
-          className="form-control"
-          aria-label="Book category"
           value={bookData.category}
           onChange={handleInputChange}
           name="category"
-        />
+        >
+          <option value="">Category</option>
+          <option value="Education">Education</option>
+          <option value="Sports">Sports</option>
+          <option value="Entertainment">Entertainment</option>
+          <option value="Family Life">Family Life</option>
+          <option value="other">Other</option>
+        </select>
 
         <button
           type="submit"
