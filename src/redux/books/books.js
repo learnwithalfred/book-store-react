@@ -43,16 +43,16 @@ export const getBooks = () => (dispatch) => {
   fetch(URL)
     .then((response) => response.json())
     .then((data) => {
-      const newBooks = [];
+      const newData = [];
       Object.keys(data).forEach((key) => {
         if (key) {
-          newBooks.push({
+          newData.push({
             ...data[key][0],
             item_id: key,
           });
         }
       });
-      dispatch(fetchBooks(newBooks));
+      dispatch(fetchBooks(newData));
     })
     .catch((error) => {
       dispatch(fetchBooksError(error.message));

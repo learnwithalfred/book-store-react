@@ -1,7 +1,7 @@
-const CHECK = 'CHECK';
+const CHECK_STATUS = 'CHECK_STATUS';
 
 export const CheckStatus = () => ({
-  type: CHECK,
+  type: CHECK_STATUS,
 });
 
 const initialStatus = {
@@ -10,7 +10,7 @@ const initialStatus = {
 
 const categoryReducer = (state = initialStatus, action) => {
   switch (action.type) {
-    case CHECK:
+    case CHECK_STATUS:
       return initialStatus;
     default:
       return state;
