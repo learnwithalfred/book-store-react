@@ -28,7 +28,7 @@ function Book(props) {
       <div className="card-body book-card-body">
         <div className="row">
           <div className="book-data col-5">
-            <span className="action-text">Action</span>
+            <span className="action-text">{category}</span>
             <span className="action-header">{title}</span>
             <span className="action-sub-text">{author}</span>
             <div className="book-data-cta">
@@ -68,7 +68,7 @@ function Book(props) {
               {chapter}
             </span>
             <button type="button" className="btn btn-primary Update-progress">
-              Update progress
+              Update Progress
             </button>
           </div>
         </div>
