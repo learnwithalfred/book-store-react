@@ -1,6 +1,7 @@
+import { nanoid } from '@reduxjs/toolkit';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addBook } from '../redux/books/books';
+import { createBook } from '../redux/books/books';
 
 import { selectAllCategories } from '../redux/categories/categories';
 import './Add-book-form.css';
@@ -9,18 +10,30 @@ function AddBookForm() {
   const categories = useSelector(selectAllCategories);
 
   const dispatch = useDispatch();
+  const initialState = {
+    itemId: '',
+    title: '',
+    author: '',
+    category: 'Education',
+  };
+  const [bookData, setBookData] = useState(initialState);
 
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
-
-  const onTitleChanged = (e) => setTitle(e.target.value);
-  const onAuthorChanged = (e) => setAuthor(e.target.value);
+  const handleInputChange = (event) => {
+    event.preventDefault();
+    const { name, value } = event.target;
+    setBookData({ ...bookData, [name]: value });
+  };
 
   const onSavePostClicked = () => {
-    if (title && author) {
-      dispatch(addBook({ title, author }));
-      setTitle('');
-      setAuthor('');
+    if (bookData.title && bookData.author) {
+      const inputData = {
+        item_id: nanoid(),
+        title: bookData.title,
+        author: bookData.author,
+        category: bookData.category,
+      };
+      dispatch(createBook(inputData));
+      setBookData(initialState);
     }
   };
 
@@ -40,15 +53,17 @@ function AddBookForm() {
           placeholder="Book title"
           className="form-control"
           aria-label="Text input with segmented dropdown button"
-          value={title}
-          onChange={onTitleChanged}
+          value={bookData.title}
+          onChange={handleInputChange}
+          name="title"
         />
         <select
           className="custom-select"
           id="inputGroupSelect04"
           required
-          value={author}
-          onChange={onAuthorChanged}
+          value={bookData.author}
+          onChange={handleInputChange}
+          name="author"
         >
           <option value="">Author</option>
           {renderCategories}

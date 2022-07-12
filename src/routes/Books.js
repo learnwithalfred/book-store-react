@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import AddBookForm from '../components/Add-book-form';
 import Book from '../components/Book';
 import Navbar from '../components/Navbar';
-import { selectAllBooks, addBook, removeBook } from '../redux/books/books';
+import { selectAllBooks, addBook } from '../redux/books/books';
 
 function Books() {
   const dispatch = useDispatch();
@@ -14,10 +14,6 @@ function Books() {
     }
   };
 
-  const handleDelete = (id) => {
-    dispatch(removeBook(id));
-  };
-
   const books = useSelector(selectAllBooks);
   const renderBooks = books.map((book) => (
     <Book
@@ -25,7 +21,6 @@ function Books() {
       title={book.title}
       author={book.author}
       percentage={90}
-      handleDelete={() => handleDelete(book.id)}
     />
   ));
 
