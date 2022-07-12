@@ -1,20 +1,17 @@
 import { nanoid } from '@reduxjs/toolkit';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { createBook } from '../redux/books/books';
 
-import { selectAllCategories } from '../redux/categories/categories';
 import './Add-book-form.css';
 
 function AddBookForm() {
-  const categories = useSelector(selectAllCategories);
-
   const dispatch = useDispatch();
   const initialState = {
     itemId: '',
     title: '',
     author: '',
-    category: 'Education',
+    category: '',
   };
   const [bookData, setBookData] = useState(initialState);
 
@@ -37,12 +34,6 @@ function AddBookForm() {
     }
   };
 
-  const renderCategories = categories.map((item) => (
-    <option key={item.id} value={item.name}>
-      {item.name}
-    </option>
-  ));
-
   return (
     <div className="add-book-form">
       <h2>Add New Book</h2>
@@ -57,17 +48,27 @@ function AddBookForm() {
           onChange={handleInputChange}
           name="title"
         />
-        <select
-          className="custom-select"
-          id="inputGroupSelect04"
+        <input
           required
+          type="text"
+          placeholder="Book Author"
+          className="form-control"
+          aria-label="Book Author"
           value={bookData.author}
           onChange={handleInputChange}
           name="author"
-        >
-          <option value="">Author</option>
-          {renderCategories}
-        </select>
+        />
+        <input
+          required
+          type="text"
+          placeholder="Category"
+          className="form-control"
+          aria-label="Book category"
+          value={bookData.category}
+          onChange={handleInputChange}
+          name="category"
+        />
+
         <button
           type="submit"
           className="btn btn-primary submit-btn"
