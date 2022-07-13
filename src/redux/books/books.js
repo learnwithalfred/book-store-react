@@ -1,119 +1,79 @@
-export const ADD_BOOK = 'ADD_BOOK';
-export const GET_ALL_BOOKS = 'GET_ALL_BOOKS';
-export const REMOVE_BOOK = 'REMOVE_BOOK';
-const FETCH_BOOKS = 'FETCH_BOOKS';
-const FETCH_BOOKS_ERROR = 'FETCH_BOOKS_ERROR';
-const FETCH_BOOKS_LOADING = 'FETCH_BOOKS_LOADING';
+/* eslint-disable no-param-reassign */
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+
 const API_KEY = 'FYlvcWEDlWEYN00KzCCr';
 const BASE_URL = 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net';
 export const URL = `${BASE_URL}/bookstoreApi/apps/${API_KEY}/books`;
 
-export const addBook = (book) => ({
-  type: ADD_BOOK,
-  payload: book,
+export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => {
+  const response = await axios.get(URL);
+  const newData = [];
+  Object.keys(response.data).forEach((key) => {
+    if (key) {
+      newData.push({
+        ...response.data[key][0],
+        item_id: key,
+      });
+    }
+  });
+
+  return newData;
 });
 
-export const removeBook = (id) => ({
-  type: REMOVE_BOOK,
-  payload: id,
+export const createBook = createAsyncThunk('books/addNewBook', async (data) => {
+  const response = await axios.post(URL, data);
+  return response.data;
 });
 
-export const fetchBooks = (books) => ({
-  type: FETCH_BOOKS,
-  payload: books,
-});
-
-export const fetchBooksError = (error) => ({
-  type: FETCH_BOOKS_ERROR,
-  payload: error,
-});
-
-export const fetchBooksLoading = () => ({
-  type: FETCH_BOOKS_LOADING,
-});
+export const deleteBook = createAsyncThunk(
+  'books/addDeleteBook',
+  async (id) => {
+    const response = await axios.post(`${URL}/id`, id);
+    return response.data;
+  },
+);
 
 const initialState = {
   books: [],
-  loading: false,
+  status: 'idle',
   error: null,
 };
 
-export const getBooks = () => (dispatch) => {
-  dispatch(fetchBooksLoading());
-  fetch(URL)
-    .then((response) => response.json())
-    .then((data) => {
-      const newData = [];
-      Object.keys(data).forEach((key) => {
-        if (key) {
-          newData.push({
-            ...data[key][0],
-            item_id: key,
-          });
-        }
-      });
-      dispatch(fetchBooks(newData));
-    })
-    .catch((error) => {
-      dispatch(fetchBooksError(error.message));
-    });
-};
-
-export const createBook = (book) => (dispatch) => {
-  fetch(URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
+const bookSlice = createSlice({
+  name: 'books',
+  initialState,
+  reducers: {
+    bookAdded: {
+      reducer(state, action) {
+        state.books.push(action.payload);
+      },
     },
-    body: JSON.stringify(book),
-  }).then(() => {
-    dispatch(addBook(book));
-  });
-};
+    postDeleted(state, action) {
+      const { id } = action.payload;
+      state.posts.filter((post) => post.id !== id);
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchBooks.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchBooks.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.books = action.payload;
+      })
+      .addCase(fetchBooks.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      });
+  },
+});
 
-export const deleteBook = (id) => (dispatch) => {
-  fetch(`${URL}/${id}`, {
-    method: 'DELETE',
-    body: JSON.stringify({ item_id: id }),
-  }).then(() => {
-    dispatch(removeBook(id));
-  });
-};
+export const selectAllBooks = (state) => state.books.books;
+export const getBooksStatus = (state) => state.books.status;
+export const getBooksError = (state) => state.books.error;
 
-const booksReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case FETCH_BOOKS_LOADING:
-      return {
-        ...state,
-        loading: true,
-      };
-    case ADD_BOOK:
-      return {
-        ...state,
-        loading: false,
-        books: [...state.books, action.payload],
-      };
-    case REMOVE_BOOK:
-      return {
-        ...state,
-        loading: false,
-        books: state.books.filter((book) => book.item_id !== action.payload),
-      };
-    case FETCH_BOOKS:
-      return {
-        ...state,
-        loading: false,
-        books: action.payload,
-      };
-    case FETCH_BOOKS_ERROR:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-      };
-    default:
-      return state;
-  }
-};
+export const { bookAdded, postDeleted, booksFetched } = bookSlice.actions;
 
-export default booksReducer;
+export default bookSlice.reducer;
