@@ -1,21 +1,27 @@
 import React from 'react';
 import './Book.css';
+import { useDispatch } from 'react-redux';
+
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { deleteBook } from '../redux/books/books';
 
 function Book(props) {
   const {
-    title, author, percentage, chapter, handleDelete,
+    id, title, author, percentage, chapter, category,
   } = props;
 
+  const dispatch = useDispatch();
+
   Book.propTypes = {
+    id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
     author: PropTypes.string.isRequired,
     percentage: PropTypes.number,
     chapter: PropTypes.string,
-    handleDelete: PropTypes.func.isRequired,
   };
 
   Book.defaultProps = {
@@ -23,12 +29,16 @@ function Book(props) {
     chapter: '17',
   };
 
+  const removeHandler = () => {
+    dispatch(deleteBook(id));
+  };
+
   return (
     <div className="book-container">
       <div className="card-body book-card-body">
         <div className="row">
           <div className="book-data col-5">
-            <span className="action-text">Action</span>
+            <span className="action-text">{category}</span>
             <span className="action-header">{title}</span>
             <span className="action-sub-text">{author}</span>
             <div className="book-data-cta">
@@ -36,7 +46,7 @@ function Book(props) {
                 Comment
               </Link>
               <button
-                onClick={handleDelete}
+                onClick={removeHandler}
                 type="button"
                 className="action-link second-link remove-book-button"
               >
@@ -68,7 +78,7 @@ function Book(props) {
               {chapter}
             </span>
             <button type="button" className="btn btn-primary Update-progress">
-              Update progress
+              Update Progress
             </button>
           </div>
         </div>

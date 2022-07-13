@@ -1,34 +1,38 @@
+import { nanoid } from '@reduxjs/toolkit';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addBook } from '../redux/books/books';
+import { useDispatch } from 'react-redux';
+import { createBook } from '../redux/books/books';
 
-import { selectAllCategories } from '../redux/categories/categories';
 import './Add-book-form.css';
 
 function AddBookForm() {
-  const categories = useSelector(selectAllCategories);
-
   const dispatch = useDispatch();
+  const initialState = {
+    itemId: '',
+    title: '',
+    author: '',
+    category: '',
+  };
+  const [bookData, setBookData] = useState(initialState);
 
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
-
-  const onTitleChanged = (e) => setTitle(e.target.value);
-  const onAuthorChanged = (e) => setAuthor(e.target.value);
-
-  const onSavePostClicked = () => {
-    if (title && author) {
-      dispatch(addBook({ title, author }));
-      setTitle('');
-      setAuthor('');
-    }
+  const handleInputChange = (event) => {
+    event.preventDefault();
+    const { name, value } = event.target;
+    setBookData({ ...bookData, [name]: value });
   };
 
-  const renderCategories = categories.map((item) => (
-    <option key={item.id} value={item.name}>
-      {item.name}
-    </option>
-  ));
+  const onSavePostClicked = () => {
+    if (bookData.title && bookData.author) {
+      const inputData = {
+        item_id: nanoid(),
+        title: bookData.title,
+        author: bookData.author,
+        category: bookData.category,
+      };
+      dispatch(createBook(inputData));
+      setBookData(initialState);
+    }
+  };
 
   return (
     <div className="add-book-form">
@@ -40,19 +44,36 @@ function AddBookForm() {
           placeholder="Book title"
           className="form-control"
           aria-label="Text input with segmented dropdown button"
-          value={title}
-          onChange={onTitleChanged}
+          value={bookData.title}
+          onChange={handleInputChange}
+          name="title"
+        />
+        <input
+          required
+          type="text"
+          placeholder="Book Author"
+          className="form-control"
+          aria-label="Book Author"
+          value={bookData.author}
+          onChange={handleInputChange}
+          name="author"
         />
         <select
           className="custom-select"
           id="inputGroupSelect04"
           required
-          value={author}
-          onChange={onAuthorChanged}
+          value={bookData.category}
+          onChange={handleInputChange}
+          name="category"
         >
-          <option value="">Author</option>
-          {renderCategories}
+          <option value="">Category</option>
+          <option value="Education">Education</option>
+          <option value="Sports">Sports</option>
+          <option value="Entertainment">Entertainment</option>
+          <option value="Family Life">Family Life</option>
+          <option value="other">Other</option>
         </select>
+
         <button
           type="submit"
           className="btn btn-primary submit-btn"
