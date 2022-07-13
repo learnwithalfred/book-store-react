@@ -19,7 +19,7 @@ function Category() {
         <button type="button" className="btn btn-primary" onClick={update}>
           Check status
         </button>
-        <h1 className="mx-4 my-4">{categories}</h1>
+        <h1 className="my-4 display-1">{categories}</h1>
       </div>
     </>
   );
