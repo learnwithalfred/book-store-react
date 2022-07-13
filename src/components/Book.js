@@ -36,7 +36,7 @@ function Book(props) {
   return (
     <div className="book-container">
       <div className="card-body book-card-body">
-        <div className="row">
+        <div className="row book-content">
           <div className="book-data col-5">
             <span className="action-text">{category}</span>
             <span className="action-header">{title}</span>

@@ -44,7 +44,7 @@ const initialState = {
 const bookSlice = createSlice({
   name: 'books',
   initialState,
-  // add any code that don't require api request
+  // add any action that don't require api request
   reducers: {},
   // add any action the require API request
   extraReducers: (builder) => {
