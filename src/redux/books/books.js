@@ -44,17 +44,9 @@ const initialState = {
 const bookSlice = createSlice({
   name: 'books',
   initialState,
-  reducers: {
-    bookAdded: {
-      reducer(state, action) {
-        state.books.push(action.payload);
-      },
-    },
-    postDeleted(state, action) {
-      const { id } = action.payload;
-      state.posts.filter((post) => post.item_id !== id);
-    },
-  },
+  // add any code that don't require api request
+  reducers: {},
+  // add any action the require API request
   extraReducers: (builder) => {
     builder
       .addCase(fetchBooks.pending, (state) => {
@@ -85,7 +77,5 @@ const bookSlice = createSlice({
 export const selectAllBooks = (state) => state.books.books;
 export const getBooksStatus = (state) => state.books.status;
 export const getBooksError = (state) => state.books.error;
-
-export const { bookAdded, postDeleted, booksFetched } = bookSlice.actions;
 
 export default bookSlice.reducer;
